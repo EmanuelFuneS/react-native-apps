@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { Button } from "@repo/ui";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import SearchBar from "../components/SearchBar";
 
 export default function Native() {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Native</Text>
+      <SearchBar style={styles.searchBar} />
+      <Text>Native</Text>
       <Button
         onClick={() => {
           console.log("Pressed!");
@@ -23,11 +25,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    paddingTop: 20,
   },
-  header: {
-    fontWeight: "bold",
+  searchBar: {
+    width: "90%",
     marginBottom: 20,
-    fontSize: 36,
   },
 });
