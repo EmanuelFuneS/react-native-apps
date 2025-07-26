@@ -14,6 +14,7 @@ interface SearchBarProps {
 }
 
 function SearchBar({ style, onSearch }: SearchBarProps) {
+  /*   const inputRef = useRef<TextInput>(null); */
   const [city, setCity] = useState<string>("");
 
   const handleSearch = () => {
@@ -23,10 +24,19 @@ function SearchBar({ style, onSearch }: SearchBarProps) {
     }
   };
 
+  /*   useEffect(() => {
+    useCallback(() => {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }, []);
+  }, []);
+ */
   return (
     <SafeAreaView style={[styles.container, style]}>
       <Text style={styles.header}>Buscar Ciudad</Text>
       <TextInput
+        /*  ref={inputRef} */
         style={styles.input}
         placeholder="Escribe una ciudad"
         value={city}
@@ -54,6 +64,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     fontFamily: "16",
+    padding: 4,
   },
 });
 
