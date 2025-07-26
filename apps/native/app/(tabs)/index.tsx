@@ -1,8 +1,7 @@
-import { Button } from "@repo/ui";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import SearchBar from "../../components/SearchBar";
 import WeatherCard from "../../components/WeatherCard";
 
 const testData = [
@@ -21,27 +20,10 @@ export default function index() {
     <>
       <Stack.Screen
         options={{
-          title: "ClimApp",
-          headerStyle: {
-            backgroundColor: "#007AFF",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
+          headerShown: false,
         }}
       />
       <View style={styles.container}>
-        <SearchBar style={styles.searchBar} />
-        <Text>Native</Text>
-        <Button
-          onClick={() => {
-            console.log("Pressed!");
-            alert("Pressed!");
-          }}
-          text="Boop"
-        />
-
         <ScrollView style={styles.cityMapView}>
           <Text>Mis Ciudades</Text>
           {testData.length === 0 ? (

@@ -1,3 +1,4 @@
+import { Button } from "@repo/ui";
 import React, { useState } from "react";
 import {
   StyleProp,
@@ -43,6 +44,14 @@ function SearchBar({ style, onSearch }: SearchBarProps) {
         onChangeText={setCity}
         onSubmitEditing={handleSearch}
         returnKeyType="search"
+      />
+      <Text>Native</Text>
+      <Button
+        onClick={() => {
+          console.log("Pressed!");
+          alert("Pressed!");
+        }}
+        text="Boop"
       />
     </SafeAreaView>
   );
