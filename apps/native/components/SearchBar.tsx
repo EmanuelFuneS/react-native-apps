@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  View,
   ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -36,23 +37,24 @@ function SearchBar({ style, onSearch }: SearchBarProps) {
   return (
     <SafeAreaView style={[styles.container, style]}>
       <Text style={styles.header}>Buscar Ciudad</Text>
-      <TextInput
-        /*  ref={inputRef} */
-        style={styles.input}
-        placeholder="Escribe una ciudad"
-        value={city}
-        onChangeText={setCity}
-        onSubmitEditing={handleSearch}
-        returnKeyType="search"
-      />
-      <Text>Native</Text>
-      <Button
-        onClick={() => {
-          console.log("Pressed!");
-          alert("Pressed!");
-        }}
-        text="Boop"
-      />
+      <View>
+        <TextInput
+          /*  ref={inputRef} */
+          style={styles.input}
+          placeholder="Escribe una ciudad"
+          value={city}
+          onChangeText={setCity}
+          onSubmitEditing={handleSearch}
+          returnKeyType="search"
+        />
+        <Button
+          onClick={() => {
+            console.log("Pressed!");
+            alert("Pressed!");
+          }}
+          text="Boop"
+        />
+      </View>
     </SafeAreaView>
   );
 }
