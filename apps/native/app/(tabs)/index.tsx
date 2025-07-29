@@ -1,8 +1,4 @@
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import WeatherCard from "../../components/WeatherCard";
+import { StyleSheet } from "react-native";
 
 const testData = [
   "Buenos Aires",
@@ -16,28 +12,7 @@ const testData = [
 ];
 
 export default function index() {
-  return (
-    <>
-      <Stack.Screen
-        options={{
-          headerShown: false,
-        }}
-      />
-      <View style={styles.container}>
-        <ScrollView style={styles.cityMapView}>
-          <Text>Mis Ciudades</Text>
-          {testData.length === 0 ? (
-            <Text style={{ color: "gray" }}>No tienes Ciudades guardadas</Text>
-          ) : (
-            testData.map((city, index) => (
-              <WeatherCard id={index} city={city} />
-            ))
-          )}
-        </ScrollView>
-        <StatusBar style="auto" />
-      </View>
-    </>
-  );
+  return <></>;
 }
 
 const styles = StyleSheet.create({

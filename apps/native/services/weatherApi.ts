@@ -21,4 +21,9 @@ export const weatherApi = {
       console.error("Error int fetch data", error);
     }
   },
+  getCurrentLocationByLatitudeLongitude: (lat, lon) => {},
+
+  getForecastFiveDaysThreeHours: (q) => {},
+
+  getBySearchLocation: (q) => {},
 };
