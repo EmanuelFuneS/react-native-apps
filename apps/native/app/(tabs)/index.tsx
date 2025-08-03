@@ -1,20 +1,27 @@
-import { StyleSheet } from "react-native";
-
-const testData = [
-  "Buenos Aires",
-  "Moscow",
-  "France",
-  "New York",
-  "Orando",
-  "Cordoba",
-  "Madrid",
-  "Barcelona",
-];
+import { Stack } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import useLocation from "../../hooks/useGeolocation";
 
 export default function index() {
-  return <></>;
-}
+  const { location, error, isLoading } = useLocation();
 
+  console.log("Current Location:", location);
+  console.log("Error:", error);
+  console.log("Is Loading:", isLoading);
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
+      <View>
+        <Text>Current Location {JSON.stringify(location)}</Text>
+      </View>
+    </>
+  );
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

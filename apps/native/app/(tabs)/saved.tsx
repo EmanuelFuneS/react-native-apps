@@ -1,7 +1,18 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { ScrollView, StatusBar, Text, View } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
 import WeatherCard from "../../components/WeatherCard";
+
+const testData = [
+  "Buenos Aires",
+  "Moscow",
+  "France",
+  "New York",
+  "Orando",
+  "Cordoba",
+  "Madrid",
+  "Barcelona",
+];
 
 export default function saved() {
   return (
@@ -22,8 +33,24 @@ export default function saved() {
             ))
           )}
         </ScrollView>
-        <StatusBar style="auto" />
+        <StatusBar />
       </View>
     </>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 20,
+  },
+  searchBar: {
+    width: "90%",
+    marginBottom: 20,
+  },
+  cityMapView: {
+    width: "90%",
+  },
+});
