@@ -1,5 +1,4 @@
 import { Stack, Tabs } from "expo-router";
-import React from "react";
 import { Text } from "react-native";
 
 export default function TabLayout() {
@@ -9,7 +8,7 @@ export default function TabLayout() {
         options={{
           title: "ClimApp",
           headerStyle: {
-            backgroundColor: "#007AFF",
+            backgroundColor: "#5bc7eb",
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
@@ -17,7 +16,14 @@ export default function TabLayout() {
           },
         }}
       />
-      <Tabs>
+      <Tabs
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: "#50bbe0", // Fondo del tab bar
+            borderTopColor: "#50bbe0",
+          },
+        }}
+      >
         <Tabs.Screen
           name="index"
           options={{

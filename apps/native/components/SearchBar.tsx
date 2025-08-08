@@ -1,5 +1,5 @@
 import { Button } from "@repo/ui";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   StyleProp,
   StyleSheet,
@@ -64,6 +64,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
     fontSize: 36,
+    backgroundColor: "orange",
+    paddingInline: 20,
   },
   header: {
     fontWeight: "bold",

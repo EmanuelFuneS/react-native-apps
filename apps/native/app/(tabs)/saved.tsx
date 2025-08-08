@@ -1,7 +1,7 @@
+import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import React from "react";
 import { ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
-import WeatherCard from "../../components/WeatherCard";
+import WeatherCard from "../../components/WeatherCitiesCard";
 
 const testData = [
   "Buenos Aires",
@@ -24,14 +24,20 @@ export default function saved() {
       />
       <View style={styles.container}>
         <ScrollView style={styles.cityMapView}>
-          <Text>Mis Ciudades</Text>
-          {testData.length === 0 ? (
-            <Text style={{ color: "gray" }}>No tienes Ciudades guardadas</Text>
-          ) : (
-            testData.map((city, index) => (
-              <WeatherCard id={index} city={city} />
-            ))
-          )}
+          <LinearGradient
+            colors={["#5bc7eb", "#175b80"]}
+            style={styles.gradient}
+          >
+            {testData.length === 0 ? (
+              <Text style={{ color: "gray" }}>
+                No tienes Ciudades guardadas
+              </Text>
+            ) : (
+              testData.map((city, index) => (
+                <WeatherCard id={index} city={city} />
+              ))
+            )}
+          </LinearGradient>
         </ScrollView>
         <StatusBar />
       </View>
@@ -44,13 +50,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 20,
   },
   searchBar: {
     width: "90%",
     marginBottom: 20,
   },
   cityMapView: {
-    width: "90%",
+    width: "100%",
+  },
+  gradient: {
+    height: "100%",
+    paddingVertical: 15,
   },
 });

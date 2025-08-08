@@ -5,17 +5,14 @@ const BASE_URL = process.env.BASE_URL;
 const BASE_GEO_URL = process.env.BASE_GEO_URL;
 
 interface WeatherApi {
-  getCurrentWeather: (q: string) => Promise<any>;
-  getCurrentLocationByLatitudeLongitude: (
-    latitude: number,
-    longitude: number
-  ) => void;
+  getCurrentWeatherByCity: (q: string) => Promise<any>;
+  getCityByGeoLocation: (latitude: number, longitude: number) => void;
   getForecastFiveDaysThreeHours: (q: string) => void;
   getBySearchLocation: (q: string) => void;
 }
 
 export const weatherApi = {
-  getCurrentWeather: async (q) => {
+  getCurrentWeatherByCity: async (q) => {
     try {
       // Fetch data with name location
       if (q === undefined || q === "")
@@ -34,7 +31,7 @@ export const weatherApi = {
       return new Error("Failed to fetch current weather data");
     }
   },
-  getCurrentLocationByLatitudeLongitude: (latitude, longitude) => {
+  getCityByGeoLocation: (latitude, longitude) => {
     try {
       // Fetch data with latitude and longitude
       if (latitude === undefined || longitude === undefined)
