@@ -4,7 +4,7 @@ import {
   renderHook,
   waitFor,
 } from "@repo/test-config";
-import useGeoLocation from "../../hooks/useLocation";
+import useGeoLocation from "../../lib/hooks/useLocation";
 
 jest.mock("expo-location", () => mockExpoLocation);
 

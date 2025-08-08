@@ -1,8 +1,18 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect } from "react";
+import {
+  FlatList,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import WeatherForecastCard from "../../components/WeatherForecastCard";
 import WeatherTodayCard from "../../components/weatherTodayCard";
-import useLocation from "../../hooks/useLocation";
+import useLocation from "../../lib/hooks/useLocation";
+import useWeatherByLocation from "../../lib/hooks/useWeatherByLocation";
 
 const dummyWeatherData = {
   coord: { lon: -64.18, lat: -31.42 },
@@ -46,11 +56,21 @@ const dummyWeatherData = {
 };
 
 export default function index() {
-  const { location, error, isLoading } = useLocation();
+  const { location, error: errorLocation, isLoading } = useLocation();
+  const { weatherLocation, error } = useWeatherByLocation(location);
 
-  console.log("Current Location:", location);
-  console.log("Error:", error);
-  console.log("Is Loading:", isLoading);
+  console.log("City By GeoLocation", weatherLocation);
+
+  useEffect(() => {}, [location]);
+
+  const forecastData = [
+    { id: 1, date: "Mon", tem: "29°C" },
+    { id: 2, date: "Wed", tem: "29°C" },
+    { id: 3, date: "Fri", tem: "29°C" },
+    { id: 4, date: "Sun", tem: "29°C" },
+    { id: 5, date: "Sat", tem: "29°C" },
+  ];
+
   return (
     <>
       <Stack.Screen
@@ -58,12 +78,30 @@ export default function index() {
           headerShown: false,
         }}
       />
-      <LinearGradient colors={["#5bc7eb", "#175b80"]} style={styles.gradient}>
-        <View>
-          <Text>Current Location {JSON.stringify(location)}</Text>
-          <WeatherTodayCard city={"Cordoba"} weatherData={dummyWeatherData} />
-        </View>
-      </LinearGradient>
+      <View>
+        <ScrollView style={styles.forecastMapView}>
+          <LinearGradient
+            colors={["#5bc7eb", "#175b80"]}
+            style={styles.gradient}
+          >
+            <Text>Current Location {JSON.stringify(location)}</Text>
+            <WeatherTodayCard city={"Cordoba"} weatherData={dummyWeatherData} />
+            <FlatList
+              data={forecastData}
+              numColumns={1}
+              renderItem={({ item }) => (
+                <WeatherForecastCard
+                  key={item.id}
+                  date={item.date}
+                  temp={item.tem}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+            />
+          </LinearGradient>
+        </ScrollView>
+        <StatusBar />
+      </View>
     </>
   );
 }
@@ -73,7 +111,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    paddingTop: 20,
   },
   searchBar: {
     width: "90%",
@@ -82,7 +119,14 @@ const styles = StyleSheet.create({
   cityMapView: {
     width: "90%",
   },
+  forecastMapView: {
+    width: "100%",
+  },
   gradient: {
     height: "100%",
+    paddingVertical: 15,
+  },
+  row: {
+    justifyContent: "space-around",
   },
 });

@@ -1,15 +1,6 @@
-import * as Location from "expo-location";
+import * as GeoLocation from "expo-location";
+import { ErrorLocation, Location } from "lib/types";
 import { useEffect, useState } from "react";
-
-interface Location {
-  latitude: number;
-  longitude: number;
-}
-
-interface ErrorLocation {
-  code: number;
-  message: string;
-}
 
 const useLocation = () => {
   const [location, setLocation] = useState<Location>({
@@ -22,7 +13,8 @@ const useLocation = () => {
   useEffect(() => {
     const getLocation = async () => {
       try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
+        const { status } =
+          await GeoLocation.requestForegroundPermissionsAsync();
         if (status !== "granted") {
           setError({
             code: 1,
@@ -32,8 +24,8 @@ const useLocation = () => {
           return;
         }
 
-        const location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.High,
+        const location = await GeoLocation.getCurrentPositionAsync({
+          accuracy: GeoLocation.Accuracy.High,
           timeInterval: 10000,
           distanceInterval: 10,
         });

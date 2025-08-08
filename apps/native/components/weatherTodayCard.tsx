@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
   },
   container: {
-    minHeight: "50%",
+    minHeight: 360,
     margin: 40,
     padding: 20,
     borderRadius: 10,

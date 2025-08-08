@@ -6,9 +6,9 @@ const BASE_GEO_URL = process.env.BASE_GEO_URL;
 
 interface WeatherApi {
   getCurrentWeatherByCity: (q: string) => Promise<any>;
-  getCityByGeoLocation: (latitude: number, longitude: number) => void;
-  getForecastFiveDaysThreeHours: (q: string) => void;
-  getBySearchLocation: (q: string) => void;
+  getCityByGeoLocation: (latitude: string, longitude: string) => Promise<any>;
+  getForecastFiveDaysThreeHours: (q: string) => Promise<any>;
+  getBySearchLocation: (q: string) => Promise<any>;
 }
 
 export const weatherApi = {
@@ -31,18 +31,20 @@ export const weatherApi = {
       return new Error("Failed to fetch current weather data");
     }
   },
-  getCityByGeoLocation: (latitude, longitude) => {
+  getCityByGeoLocation: async (latitude, longitude) => {
     try {
       // Fetch data with latitude and longitude
       if (latitude === undefined || longitude === undefined)
         return new Error("latitude and longitude are required");
-      const response = axios.get(`${BASE_GEO_URL}/reverse`, {
+      const response = await axios.get(`${BASE_GEO_URL}/reverse`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
         params: {
           appid: API_KEY,
           lat: latitude,
           lon: longitude,
           limit: 1,
-          lang: "es",
         },
       });
       return response;
@@ -52,12 +54,12 @@ export const weatherApi = {
     }
   },
 
-  getForecastFiveDaysThreeHours: (q) => {
+  getForecastFiveDaysThreeHours: async (q) => {
     try {
       // Fetch data with name location for forecast
       if (q === undefined || q === "")
         return new Error("location name are required");
-      const response = axios.get(`${BASE_URL}/forecast`, {
+      const response = await axios.get(`${BASE_URL}/forecast`, {
         params: {
           q: q,
           appid: API_KEY,
@@ -72,13 +74,13 @@ export const weatherApi = {
     }
   },
 
-  getBySearchLocation: (q) => {
+  getBySearchLocation: async (q) => {
     try {
       //fetch data with search location
       // This endpoint is used to search for locations by name
       if (q === undefined || q === "")
         return new Error("location name are required");
-      const response = axios.get(`${BASE_URL}/direct`, {
+      const response = await axios.get(`${BASE_URL}/direct`, {
         params: {
           appid: API_KEY,
           q: q,
