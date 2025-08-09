@@ -1,31 +1,47 @@
 import axios from "axios";
+import { GeoLocation, WeatherResponse } from "../types";
 
-const API_KEY = process.env.OPEN_WEATHER_API_KEY;
-const BASE_URL = process.env.BASE_URL;
-const BASE_GEO_URL = process.env.BASE_GEO_URL;
+const API_KEY = process.env.EXPO_PUBLIC_OPEN_WEATHER_API_KEY;
+const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
+const BASE_GEO_URL = process.env.EXPO_PUBLIC_BASE_GEO_URL;
 
 interface WeatherApi {
-  getCurrentWeatherByCity: (q: string) => Promise<any>;
-  getCityByGeoLocation: (latitude: string, longitude: string) => Promise<any>;
+  getCurrentWeather: (
+    q?: string,
+    lat?: string,
+    lon?: string
+  ) => Promise<WeatherResponse>;
+  getCityByGeoLocation: (
+    latitude: string,
+    longitude: string
+  ) => Promise<GeoLocation>;
   getForecastFiveDaysThreeHours: (q: string) => Promise<any>;
   getBySearchLocation: (q: string) => Promise<any>;
 }
 
 export const weatherApi = {
-  getCurrentWeatherByCity: async (q) => {
+  getCurrentWeather: async (q, lat, lon) => {
     try {
       // Fetch data with name location
-      if (q === undefined || q === "")
-        return new Error("location name are required");
+      if (
+        (q === undefined || q === "") &&
+        (lat === undefined || lat === "" || lon === undefined || lon === "")
+      ) {
+        return new Error(
+          "Either location name (q) or both coordinates (lat and lon) are required"
+        );
+      }
       const response = await axios.get(`${BASE_URL}/weather`, {
         params: {
           appid: API_KEY,
-          q: q,
+          q: q || "",
+          lat: lat || "",
+          lon: lon || "",
           units: "metric",
           lang: "es",
         },
       });
-      return response;
+      return response.data;
     } catch (error) {
       console.error("Error int fetch data with location name", error);
       return new Error("Failed to fetch current weather data");
@@ -47,7 +63,9 @@ export const weatherApi = {
           limit: 1,
         },
       });
-      return response;
+
+      console.log("Service:", response);
+      return response.data;
     } catch (error) {
       console.error("Error fetching location by latitude and longitude", error);
       return new Error("Failed to fetch location by latitude and longitude");

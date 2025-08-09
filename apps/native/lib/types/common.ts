@@ -4,11 +4,17 @@ export interface ApiResponse<T> {
 }
 
 export interface Location {
-  latitude: number;
-  longitude: number;
+  lat: string;
+  lon: string;
 }
 
 export interface ErrorLocation {
   code: number;
   message: string;
+}
+
+export interface Q {
+  city: string;
+  state: string;
+  country: string;
 }

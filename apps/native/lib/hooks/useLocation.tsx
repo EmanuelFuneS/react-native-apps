@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 const useLocation = () => {
   const [location, setLocation] = useState<Location>({
-    latitude: 0,
-    longitude: 0,
+    lat: "0",
+    lon: "0",
   });
   const [error, setError] = useState<ErrorLocation>({ code: 0, message: "" });
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -31,8 +31,8 @@ const useLocation = () => {
         });
 
         setLocation({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
+          lat: location.coords.latitude.toString(),
+          lon: location.coords.longitude.toString(),
         });
       } catch (error) {
         setError({ code: 2, message: "Failed to fetch location" });

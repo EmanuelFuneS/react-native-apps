@@ -1,9 +1,14 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Divider from "../components/ui/Divider";
+import { WeatherResponse } from "../lib/types";
 
-const WeatherTodayCard = ({ city, weatherData }) => {
-  if (!weatherData) {
+interface WeatherTodayCardProps {
+  data: WeatherResponse | undefined;
+}
+
+const WeatherTodayCard = ({ data }: WeatherTodayCardProps) => {
+  if (typeof data == "undefined") {
     return <Text>Cargando datos del clima...</Text>;
   }
 
@@ -11,7 +16,8 @@ const WeatherTodayCard = ({ city, weatherData }) => {
     main: { temp, humidity },
     wind: { deg, speed },
     weather,
-  } = weatherData;
+    name,
+  } = data;
 
   const weatherMain = weather[0].main;
   const weatherIcon = weather[0].icon;
@@ -67,7 +73,7 @@ const WeatherTodayCard = ({ city, weatherData }) => {
         <View style={styles.weatherInfoRight}>
           <View style={styles.info}>
             <Text style={styles.temperatureText}>{Math.round(temp)}°C</Text>
-            <Text style={styles.cityText}>{city}</Text>
+            <Text style={styles.cityText}>{name}</Text>
           </View>
           <Text style={styles.humidityText}>Humidity: {humidity}%</Text>
         </View>
